@@ -7,17 +7,15 @@ import { useSIWE, SIWESession } from "connectkit";
 import { useNetwork, useDisconnect, useAccount, useConnect } from 'wagmi'
 import { ChainIcon } from "connectkit";
 import {abi} from "../abi/abi.json"
+import { writeContract } from '@wagmi/core'
 import { useSendTransaction } from 'wagmi';
+
 import { usePrepareContractWrite, useContractWrite, useContractRead, erc20ABI } from 'wagmi';
 export default function Home() {
   const [player, setPlayer] = useState(''); // State for player address
   const [amount, setAmount] = useState(); // State for staked amount
   const [gameid, setGameId] = useState( ); // State for game ID
   const [ghoAmount, setGhoAmount] = useState(); // State for GHO amount
-
-
-
-
 
   const { setOpen } = useModal();
   const { data, isSignedIn, signOut, signIn } = useSIWE();
@@ -42,13 +40,25 @@ export default function Home() {
   });
 
   const { data: writeData, isLoading: writeLoading, write } = useContractWrite(config);
+
+const write2 =async() =>{
+  const result = await writeContract(config, {
+    abi:abi,
+    address: contractAddress,
+    functionName: 'withdrawRewards',
+    args: [],
+  })
+}
+
   return (
     <div className="p-23">
       {!isConnected && <button onClick={() => setOpen(true)}>Connect WALLET</button>}
       {isConnected && (
-        <div>
+        <div className='m-2 flex text-zinc-100'>
           <h1>Connected wallet: {address}</h1>
-          <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
+          <div className='m-2 '>
+          <ChainIcon  id={chain?.id} unsupported={chain?.unsupported} />
+          </div>
           <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => disconnect()}>Disconnect</button>
         </div>    
       )}
@@ -96,9 +106,13 @@ export default function Home() {
             <button  className="bg-green-500 text-white px-4 py-2 rounded" disabled={!write} onClick={() => write()}>
           Write function
         </button>
+        <button  className="bg-cyan-500 m-3 text-white px-4 py-2 rounded" disabled={!write} onClick={() => write()}>
+          Claim Rewards
+        </button>
+
+        </div>
           </div>
           </div>
-    </div>
   );
 }
 

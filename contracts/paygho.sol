@@ -63,7 +63,7 @@ uint256  public game =1;
         endpointIdUint256 = _endpointIdUint256;
         sponsorWallet = _sponsorWallet;
     }
-   function makeRequestUint256() external {
+   function makeRequestUint256(uint256 _game) external {
         bytes32 requestId = airnodeRrp.makeFullRequest(
             airnode,
             endpointIdUint256,
@@ -73,7 +73,7 @@ uint256  public game =1;
             this.fulfillUint256.selector,
             ""
         );
- requestIdToGameId[requestId] = game; 
+ requestIdToGameId[requestId] = _game; 
     }
     function fulfillUint256(bytes32 requestId, bytes calldata data)
         external
