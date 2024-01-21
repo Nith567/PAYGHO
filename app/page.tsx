@@ -5,7 +5,7 @@ import { useModal } from 'connectkit'
 import { useSIWE, SIWESession } from "connectkit";
 import { useNetwork, useDisconnect, useAccount, useConnect } from 'wagmi'
 import { ChainIcon } from "connectkit";
-
+import {abi} from "../abi/abi.json"
 
 export default function Home() {
   const { setOpen } = useModal();
