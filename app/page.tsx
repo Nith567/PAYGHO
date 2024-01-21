@@ -18,13 +18,13 @@ export default function Home() {
 
   return (
     <div className="p-23">
-      {!isConnected && <button onClick={() => setOpen(true)}>Open modal</button>}
+      {!isConnected && <button onClick={() => setOpen(true)}>Connect WALLET</button>}
       {isConnected && (
         <div>
           <h1>Connected wallet: {address}</h1>
           <ChainIcon id={chain?.id} unsupported={chain?.unsupported} />
           <button onClick={() => disconnect()}>Disconnect</button>
-        </div>
+        </div>    
       )}
     </div>
   );
