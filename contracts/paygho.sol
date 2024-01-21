@@ -83,7 +83,8 @@ uint256  public game =1;
     uint256 gameId = requestIdToGameId[requestId];
     eachGame[gameId].randomNumber=(qrngUint256 % 1500);
 }
-
+   fallback() external payable {
+    }
 
  function withdrawRewards(uint256 gameId) public {
       if( eachGame[gameId].GHOAmount[msg.sender]< eachGame[gameId].randomNumber){
